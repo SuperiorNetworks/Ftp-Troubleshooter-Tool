@@ -1,6 +1,6 @@
 # FTP Troubleshooter Tool
 
-**Version:** 1.2.0  
+**Version:** 1.3.0  
 **Copyright:** 2025
 
 ## Overview
@@ -47,6 +47,10 @@ PowerShell.exe -ExecutionPolicy Bypass -File "$env:TEMP\launch_menu.ps1"
 The launcher menu provides:
 - **Option 1**: Download and install latest version to `C:\sndayton\ftpfix`
 - **Option 2**: Run the FTP troubleshooter tool
+- **Option 3**: Start StorageCraft ImageManager service
+- **Option 4**: Stop StorageCraft ImageManager service
+- **Option 5**: Restart StorageCraft ImageManager service
+- **Option 6**: Check ImageManager service status
 
 ### Option 2: One-Line Install and Run
 
@@ -169,6 +173,68 @@ Once the script starts, follow these prompts:
 5. **Upload Progress**: Watch the progress bar as files upload
 6. **Completion**: Review the summary message when all files are processed
 
+## StorageCraft ImageManager Service Management
+
+The launcher menu includes options to manage the StorageCraft ImageManager service. **Administrator privileges are required** for service management operations.
+
+### Starting the Service
+
+```powershell
+# Start the service (requires Administrator)
+Start-Service -Name "StorageCraft ImageManager"
+```
+
+### Stopping the Service
+
+```powershell
+# Stop the service (requires Administrator)
+Stop-Service -Name "StorageCraft ImageManager" -Force
+```
+
+### Restarting the Service
+
+```powershell
+# Restart the service (requires Administrator)
+Restart-Service -Name "StorageCraft ImageManager" -Force
+```
+
+### Checking Service Status
+
+```powershell
+# Check current status
+Get-Service -Name "StorageCraft ImageManager" | Select-Object Name, Status, StartType
+```
+
+### Using the Launcher Menu
+
+The interactive launcher menu (options 3-6) provides a user-friendly interface for service management:
+
+1. Run the launcher as Administrator:
+   ```powershell
+   # Right-click PowerShell and select "Run as Administrator", then:
+   PowerShell.exe -ExecutionPolicy Bypass -File "C:\sndayton\ftpfix\launch_menu.ps1"
+   ```
+
+2. Select from the menu:
+   - **Option 3**: Start the service
+   - **Option 4**: Stop the service
+   - **Option 5**: Restart the service
+   - **Option 6**: View detailed service status
+
+### Common Service Management Scenarios
+
+**When to Restart the Service:**
+- After configuration changes
+- When the Image Manager becomes unresponsive
+- Before using the FTP troubleshooter as a failover
+- After system updates
+
+**Troubleshooting Service Issues:**
+- If service won't start, check Windows Event Viewer for errors
+- Verify StorageCraft is properly installed
+- Ensure no other backup software is conflicting
+- Check that the service account has proper permissions
+
 ## Troubleshooting
 
 ### Common Issues
@@ -241,12 +307,20 @@ This software is provided as-is without warranty of any kind.
 
 ## Change Log
 
+### Version 1.3.0 (2025-11-21)
+- Added StorageCraft ImageManager service management to launcher menu
+- Added options to start, stop, and restart ImageManager service
+- Added service status checking functionality
+- Added administrator privilege detection
+- Updated documentation with service management commands and scenarios
+- Enhanced launcher menu with service status display
+
 ### Version 1.2.0 (2025-11-21)
 - Added interactive launcher menu script (launch_menu.ps1)
 - Added Quick Start section with multiple installation options
 - Added one-line install and run command
 - Updated documentation with PowerShell commands for download, unzip, and run
-- Standardized installation path to C:\sndayton\ftpfix
+- Standardized installation path to C:\\sndayton\\ftpfix
 
 ### Version 1.1.0 (2025-11-21)
 - Sanitized for public release
