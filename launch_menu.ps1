@@ -4,7 +4,7 @@ IT Troubleshooting Toolkit - Interactive Launcher Menu
 
 .DESCRIPTION
 Name: launch_menu.ps1
-Version: 1.7.0
+Version: 2.0.0
 Purpose: Centralized launcher menu for IT troubleshooting tools and service management.
          Provides quick access to FTP file transfer tools and StorageCraft ImageManager service control.
 Path: /scripts/launch_menu.ps1
@@ -21,7 +21,7 @@ Key Features:
 - Superior Networks branding
 
 Input: 
-- User menu selection (1-6 or Q)
+- User menu selection (1-7 or Q)
 
 Output:
 - Downloaded and extracted files to C:\ITTools\Scripts
@@ -43,6 +43,7 @@ Change Log:
 2025-11-21 v1.5.0 - Updated installation path to C:\ITTools\Scripts
 2025-11-22 v1.6.0 - Integrated Superior Networks branding and color scheme
 2025-11-22 v1.7.0 - Fixed encoding issues with ASCII art branding
+2025-11-22 v2.0.0 - Added MassGrave PowerShell Utilities integration; Renamed repo to IT-Troubleshooting-Toolkit
 
 .NOTES
 This launcher provides centralized access to multiple IT troubleshooting tools and utilities.
@@ -51,7 +52,7 @@ Designed for IT professionals and MSPs to streamline common troubleshooting task
 
 # Configuration
 $repoOwner = "SuperiorNetworks"
-$repoName = "Ftp-Troubleshooter-Tool"
+$repoName = "IT-Troubleshooting-Toolkit"
 $installPath = "C:\ITTools\Scripts"
 $scriptName = "ftp_troubleshooter_tool.ps1"
 $serviceName = "StorageCraft ImageManager"
@@ -69,7 +70,7 @@ function Show-Menu {
     Write-Host ""
     Write-Host "  =================================================================" -ForegroundColor Cyan
     Write-Host "                     SUPERIOR NETWORKS LLC                        " -ForegroundColor White
-    Write-Host "               IT Troubleshooting Toolkit - v1.7.0                " -ForegroundColor Cyan
+    Write-Host "               IT Troubleshooting Toolkit - v2.0.0                " -ForegroundColor Cyan
     Write-Host "  =================================================================" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "  Toolkit Management:" -ForegroundColor White
@@ -81,6 +82,9 @@ function Show-Menu {
     Write-Host "    4. Stop ImageManager Service" -ForegroundColor Red
     Write-Host "    5. Restart ImageManager Service" -ForegroundColor Yellow
     Write-Host "    6. Check ImageManager Service Status" -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "  Windows/Office Activation:" -ForegroundColor White
+    Write-Host "    7. Run MassGrave Activation Scripts (MAS)" -ForegroundColor Magenta
     Write-Host ""
     Write-Host "    Q. Quit" -ForegroundColor Red
     Write-Host ""
@@ -330,10 +334,58 @@ function Get-ImageManagerServiceStatus {
     $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
 
+function Run-MassGraveActivation {
+    Write-Host "`n=== MassGrave Activation Scripts (MAS) ===" -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "This will launch the Microsoft Activation Scripts (MAS) utility." -ForegroundColor Yellow
+    Write-Host "MAS provides activation methods for Windows and Office products." -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "Features:" -ForegroundColor White
+    Write-Host "  - HWID (Digital License) for Windows 10-11" -ForegroundColor Gray
+    Write-Host "  - Ohook for Office (Permanent)" -ForegroundColor Gray
+    Write-Host "  - TSforge for Windows/ESU/Office" -ForegroundColor Gray
+    Write-Host "  - Online KMS (180 days, renewable)" -ForegroundColor Gray
+    Write-Host ""
+    Write-Host "Source: https://massgrave.dev/" -ForegroundColor Cyan
+    Write-Host ""
+    
+    $confirm = Read-Host "Do you want to launch MAS? (Y/N)"
+    
+    if ($confirm.ToUpper() -eq 'Y') {
+        Write-Host ""
+        Write-Host "Launching MassGrave Activation Scripts..." -ForegroundColor Green
+        Write-Host "Please wait..." -ForegroundColor Yellow
+        Write-Host ""
+        
+        try {
+            # Execute the MAS script
+            Invoke-Expression (Invoke-RestMethod -Uri 'https://get.activated.win')
+        }
+        catch {
+            Write-Host "Error launching MAS: $_" -ForegroundColor Red
+            Write-Host ""
+            Write-Host "Troubleshooting:" -ForegroundColor Yellow
+            Write-Host "- Check your internet connection" -ForegroundColor Yellow
+            Write-Host "- Verify the URL is not blocked by your ISP/DNS" -ForegroundColor Yellow
+            Write-Host "- Try running PowerShell as Administrator" -ForegroundColor Yellow
+            Write-Host ""
+            Write-Host "Press any key to return to menu..."
+            $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+        }
+    }
+    else {
+        Write-Host ""
+        Write-Host "MAS launch cancelled." -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "Press any key to return to menu..."
+        $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    }
+}
+
 # Main menu loop
 do {
     Show-Menu
-    Write-Host "  Select an option (1-6 or Q): " -NoNewline -ForegroundColor White
+    Write-Host "  Select an option (1-7 or Q): " -NoNewline -ForegroundColor White
     $choice = Read-Host
     
     switch ($choice.ToUpper()) {
@@ -355,12 +407,15 @@ do {
         '6' {
             Get-ImageManagerServiceStatus
         }
+        '7' {
+            Run-MassGraveActivation
+        }
         'Q' {
             Write-Host "`nExiting..." -ForegroundColor Cyan
             exit 0
         }
         default {
-            Write-Host "`nInvalid selection. Please choose 1-6 or Q." -ForegroundColor Red
+            Write-Host "`nInvalid selection. Please choose 1-7 or Q." -ForegroundColor Red
             Start-Sleep -Seconds 2
         }
     }

@@ -2,7 +2,7 @@
 
 ![Superior Networks Logo](logo.png)
 
-**Version:** 1.9.0  
+**Version:** 2.0.0  
 **Copyright:** 2025  
 **Developed by:** Superior Networks LLC
 
@@ -32,6 +32,19 @@ Complete service control for StorageCraft ImageManager backup service.
 - Real-time service status monitoring
 - Detailed service information display
 - Administrator privilege detection
+- **MassGrave Activation Scripts (MAS)**: Windows and Office activation utility
+
+### 3. MassGrave Activation Scripts (MAS)
+Open-source Windows and Office activation utility featuring multiple activation methods.
+
+**Features:**
+- HWID (Digital License) for permanent Windows 10-11 activation
+- Ohook for permanent Office activation
+- TSforge for Windows/ESU/Office activation
+- Online KMS activation (180 days, renewable with task)
+- Advanced activation troubleshooting
+- Fully open source and based on batch scripts
+- Source: [https://massgrave.dev/](https://massgrave.dev/)
 
 ## Purpose
 
@@ -69,7 +82,7 @@ Download and run the interactive launcher menu:
 
 ```powershell
 # Download the launcher
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SuperiorNetworks/Ftp-Troubleshooter-Tool/master/launch_menu.ps1" -OutFile "$env:TEMP\launch_menu.ps1"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SuperiorNetworks/IT-Troubleshooting-Toolkit/master/launch_menu.ps1" -OutFile "$env:TEMP\launch_menu.ps1"
 
 # Run the launcher menu
 PowerShell.exe -ExecutionPolicy Bypass -File "$env:TEMP\launch_menu.ps1"
@@ -95,7 +108,7 @@ Download, install, and launch the toolkit menu in one command:
 
 ```powershell
 # Create directory, download, extract, and launch menu
-$installPath = "C:\ITTools\Scripts"; New-Item -ItemType Directory -Path $installPath -Force | Out-Null; Invoke-WebRequest -Uri "https://github.com/SuperiorNetworks/Ftp-Troubleshooter-Tool/archive/refs/heads/master.zip" -OutFile "$env:TEMP\ftp-tool.zip"; Expand-Archive -Path "$env:TEMP\ftp-tool.zip" -DestinationPath "$env:TEMP\ftp-extract" -Force; Copy-Item -Path "$env:TEMP\ftp-extract\Ftp-Troubleshooter-Tool-master\*" -Destination $installPath -Recurse -Force; PowerShell.exe -ExecutionPolicy Bypass -File "$installPath\launch_menu.ps1"
+$installPath = "C:\ITTools\Scripts"; New-Item -ItemType Directory -Path $installPath -Force | Out-Null; Invoke-WebRequest**URL:** https://github.com/SuperiorNetworks/IT-Troubleshooting-Toolkitt/archive/refs/heads/master.zip" -OutFile "$env:TEMP\ftp-tool.zip"; Expand-Archive -Path "$env:TEMP\ftp-tool.zip" -DestinationPath "$env:TEMP\ftp-extract" -Force; Copy-Item -Path "$env:TEMP\ftp-extract\IT-Troubleshooting-Toolkit-master\*" -Destination $installPath -Recurse -Force; PowerShell.exe -ExecutionPolicy Bypass -File "$installPath\launch_menu.ps1"
 ```
 
 ### Option 3: Manual Installation
@@ -116,7 +129,7 @@ $installPath = "C:\ITTools\Scripts"
 New-Item -ItemType Directory -Path $installPath -Force
 
 # Download latest version
-$zipUrl = "https://github.com/SuperiorNetworks/Ftp-Troubleshooter-Tool/archive/refs/heads/master.zip"
+$zipUrl = "https://github.com/SuperiorNetworks/IT-Troubleshooting-Toolkit/archive/refs/heads/master.zip"
 $zipFile = "$env:TEMP\ftp-troubleshooter.zip"
 Invoke-WebRequest -Uri $zipUrl -OutFile $zipFile
 
@@ -125,7 +138,7 @@ $extractPath = "$env:TEMP\ftp-troubleshooter-extract"
 Expand-Archive -Path $zipFile -DestinationPath $extractPath -Force
 
 # Copy to installation directory
-Copy-Item -Path "$extractPath\Ftp-Troubleshooter-Tool-master\*" -Destination $installPath -Recurse -Force
+Copy-Item -Path "$extractPath\IT-Troubleshooting-Toolkit-master\*" -Destination $installPath -Recurse -Force
 
 Write-Host "Installation complete! Files are in: $installPath"
 ```
@@ -356,6 +369,13 @@ This software is provided as-is without warranty of any kind.
 ---
 
 ## Change Log
+
+### Version 2.0.0 (2025-11-22)
+- **Major Update**: Renamed repository to IT-Troubleshooting-Toolkit
+- **New Feature**: Integrated MassGrave PowerShell Utilities (MAS) for Windows/Office activation
+- Added Option 7: Run MassGrave Activation Scripts
+- Updated all documentation and URLs for new repository name
+- Enhanced toolkit with activation capabilities
 
 ### Version 1.9.0 (2025-11-22)
 - Fixed PowerShell encoding issues with ASCII art branding
