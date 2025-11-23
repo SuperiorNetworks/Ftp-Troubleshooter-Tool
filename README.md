@@ -1,7 +1,10 @@
 # IT Troubleshooting Toolkit Launcher
 
-**Version:** 1.7.0  
-**Copyright:** 2025
+![Superior Networks Logo](logo.png)
+
+**Version:** 1.8.0  
+**Copyright:** 2025  
+**Developed by:** Superior Networks LLC
 
 ## Overview
 
@@ -353,6 +356,12 @@ This software is provided as-is without warranty of any kind.
 ---
 
 ## Change Log
+
+### Version 1.8.0 (2025-11-22)
+- Integrated Superior Networks branding and logo
+- Added branded ASCII art header to launcher menu
+- Updated color scheme to match company branding (Cyan/White)
+- Added logo to repository and README
 
 ### Version 1.7.0 (2025-11-21)
 - Updated installation path to C:\\ITTools\\Scripts for better organization

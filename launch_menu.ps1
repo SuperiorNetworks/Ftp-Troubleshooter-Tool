@@ -4,7 +4,7 @@ IT Troubleshooting Toolkit - Interactive Launcher Menu
 
 .DESCRIPTION
 Name: launch_menu.ps1
-Version: 1.5.0
+Version: 1.6.0
 Purpose: Centralized launcher menu for IT troubleshooting tools and service management.
          Provides quick access to FTP file transfer tools and StorageCraft ImageManager service control.
 Path: /scripts/launch_menu.ps1
@@ -40,6 +40,7 @@ Change Log:
 2025-11-21 v1.3.0 - Fixed file overwrite during installation; always show menu first
 2025-11-21 v1.4.0 - Rebranded as IT Troubleshooting Toolkit Launcher
 2025-11-21 v1.5.0 - Updated installation path to C:\ITTools\Scripts
+2025-11-22 v1.6.0 - Integrated Superior Networks branding and color scheme
 
 .NOTES
 This launcher provides centralized access to multiple IT troubleshooting tools and utilities.
@@ -61,15 +62,32 @@ function Test-Administrator {
 
 function Show-Menu {
     Clear-Host
-    Write-Host "=========================================" -ForegroundColor Cyan
-    Write-Host "  IT Troubleshooting Toolkit - Launcher" -ForegroundColor Cyan
-    Write-Host "=========================================" -ForegroundColor Cyan
+    
+    # Superior Networks Branding Header
+    Write-Host "" 
+    Write-Host "  ███████╗██╗   ██╗██████╗ ███████╗██████╗ ██╗ ██████╗ ██████╗ " -ForegroundColor White
+    Write-Host "  ██╔════╝██║   ██║██╔══██╗██╔════╝██╔══██╗██║██╔═══██╗██╔══██╗" -ForegroundColor White
+    Write-Host "  ███████╗██║   ██║██████╔╝█████╗  ██████╔╝██║██║   ██║██████╔╝" -ForegroundColor Cyan
+    Write-Host "  ╚════██║██║   ██║██╔═══╝ ██╔══╝  ██╔══██╗██║██║   ██║██╔══██╗" -ForegroundColor Cyan
+    Write-Host "  ███████║╚██████╔╝██║     ███████╗██║  ██║██║╚██████╔╝██║  ██║" -ForegroundColor Cyan
+    Write-Host "  ╚══════╝ ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝" -ForegroundColor Cyan
+    Write-Host "" 
+    Write-Host "  ███╗   ██╗███████╗████████╗██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗███████╗" -ForegroundColor White
+    Write-Host "  ████╗  ██║██╔════╝╚══██╔══╝██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝██╔════╝" -ForegroundColor White
+    Write-Host "  ██╔██╗ ██║█████╗     ██║   ██║ █╗ ██║██║   ██║██████╔╝█████╔╝ ███████╗" -ForegroundColor Cyan
+    Write-Host "  ██║╚██╗██║██╔══╝     ██║   ██║███╗██║██║   ██║██╔══██╗██╔═██╗ ╚════██║" -ForegroundColor Cyan
+    Write-Host "  ██║ ╚████║███████╗   ██║   ╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗███████║" -ForegroundColor Cyan
+    Write-Host "  ╚═╝  ╚═══╝╚══════╝   ╚═╝    ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝" -ForegroundColor Cyan
+    Write-Host "" 
+    Write-Host "  ═══════════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+    Write-Host "              IT Troubleshooting Toolkit - Version 1.6.0" -ForegroundColor White
+    Write-Host "  ═══════════════════════════════════════════════════════════════════" -ForegroundColor Cyan
     Write-Host ""
-    Write-Host "FTP Tool Management:" -ForegroundColor White
+    Write-Host "  Toolkit Management:" -ForegroundColor White
     Write-Host "  1. Download and Install Latest Version" -ForegroundColor Green
     Write-Host "  2. Run FTP Troubleshooter Tool" -ForegroundColor Yellow
     Write-Host ""
-    Write-Host "StorageCraft ImageManager Service:" -ForegroundColor White
+    Write-Host "  StorageCraft ImageManager Service:" -ForegroundColor White
     Write-Host "  3. Start ImageManager Service" -ForegroundColor Green
     Write-Host "  4. Stop ImageManager Service" -ForegroundColor Red
     Write-Host "  5. Restart ImageManager Service" -ForegroundColor Yellow
@@ -77,7 +95,7 @@ function Show-Menu {
     Write-Host ""
     Write-Host "  Q. Quit" -ForegroundColor Red
     Write-Host ""
-    Write-Host "Installation Path: $installPath" -ForegroundColor Gray
+    Write-Host "  Installation Path: $installPath" -ForegroundColor Gray
     
     # Show current service status
     try {
