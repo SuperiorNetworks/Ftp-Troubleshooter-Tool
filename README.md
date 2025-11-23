@@ -2,7 +2,7 @@
 
 ![Superior Networks Logo](logo.png)
 
-**Version:** 2.1.0  
+**Version:** 2.2.0  
 **Copyright:** 2025  
 **Developed by:** Superior Networks LLC
 
@@ -369,6 +369,13 @@ This software is provided as-is without warranty of any kind.
 ---
 
 ## Change Log
+
+### Version 2.2.0 (2025-11-22)
+- **Major Update**: Created separate StorageCraft Troubleshooter script with dedicated submenu
+- Moved Manual FTP Tool and all ImageManager service controls to StorageCraft submenu
+- Simplified main launcher menu (now 3 options instead of 7)
+- Improved organization with modular script architecture
+- Enhanced user experience with focused troubleshooting submenus
 
 ### Version 2.1.0 (2025-11-22)
 - Reorganized menu structure for better tool grouping

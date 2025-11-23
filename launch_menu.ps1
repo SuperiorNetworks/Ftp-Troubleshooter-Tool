@@ -4,7 +4,7 @@ IT Troubleshooting Toolkit - Interactive Launcher Menu
 
 .DESCRIPTION
 Name: launch_menu.ps1
-Version: 2.1.0
+Version: 2.2.0
 Purpose: Centralized launcher menu for IT troubleshooting tools and service management.
          Provides quick access to FTP file transfer tools and StorageCraft ImageManager service control.
 Path: /scripts/launch_menu.ps1
@@ -21,7 +21,7 @@ Key Features:
 - Superior Networks branding
 
 Input: 
-- User menu selection (1-7 or Q)
+- User menu selection (1-3 or Q)
 
 Output:
 - Downloaded and extracted files to C:\ITTools\Scripts
@@ -45,6 +45,7 @@ Change Log:
 2025-11-22 v1.7.0 - Fixed encoding issues with ASCII art branding
 2025-11-22 v2.0.0 - Added MassGrave PowerShell Utilities integration; Renamed repo to IT-Troubleshooting-Toolkit
 2025-11-22 v2.1.0 - Reorganized menu: Grouped StorageCraft tools under 'StorageCraft Troubleshooter'; Renamed FTP tool to 'Manual FTP Tool'
+2025-11-22 v2.2.0 - Created separate StorageCraft Troubleshooter script with submenu; Simplified main launcher
 
 .NOTES
 This launcher provides centralized access to multiple IT troubleshooting tools and utilities.
@@ -71,21 +72,17 @@ function Show-Menu {
     Write-Host ""
     Write-Host "  =================================================================" -ForegroundColor Cyan
     Write-Host "                     SUPERIOR NETWORKS LLC                        " -ForegroundColor White
-    Write-Host "               IT Troubleshooting Toolkit - v2.1.0                " -ForegroundColor Cyan
+    Write-Host "               IT Troubleshooting Toolkit - v2.2.0                " -ForegroundColor Cyan
     Write-Host "  =================================================================" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "  Toolkit Management:" -ForegroundColor White
     Write-Host "    1. Download and Install Latest Version" -ForegroundColor Green
     Write-Host ""
-    Write-Host "  StorageCraft Troubleshooter:" -ForegroundColor White
-    Write-Host "    2. Manual FTP Tool" -ForegroundColor Yellow
-    Write-Host "    3. Start ImageManager Service" -ForegroundColor Green
-    Write-Host "    4. Stop ImageManager Service" -ForegroundColor Red
-    Write-Host "    5. Restart ImageManager Service" -ForegroundColor Yellow
-    Write-Host "    6. Check ImageManager Service Status" -ForegroundColor Cyan
+    Write-Host "  Troubleshooting Tools:" -ForegroundColor White
+    Write-Host "    2. StorageCraft Troubleshooter" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "  Windows/Office Activation:" -ForegroundColor White
-    Write-Host "    7. Run MassGrave Activation Scripts (MAS)" -ForegroundColor Magenta
+    Write-Host "    3. Run MassGrave Activation Scripts (MAS)" -ForegroundColor Magenta
     Write-Host ""
     Write-Host "    Q. Quit" -ForegroundColor Red
     Write-Host ""
@@ -172,167 +169,27 @@ function Download-And-Install {
     $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
 
-function Run-Troubleshooter {
-    Write-Host "`n=== Launching Manual FTP Tool ===" -ForegroundColor Cyan
+function Run-StorageCraftTroubleshooter {
+    Write-Host "`n=== Launching StorageCraft Troubleshooter ===" -ForegroundColor Cyan
     
-    $scriptPath = Join-Path $installPath $scriptName
+    $scScriptName = "storagecraft_troubleshooter.ps1"
+    $scriptPath = Join-Path $installPath $scScriptName
     
     if (Test-Path $scriptPath) {
-        Write-Host "Starting $scriptName..." -ForegroundColor Green
+        Write-Host "Starting StorageCraft Troubleshooter..." -ForegroundColor Green
         Write-Host ""
         
-        # Run the script
+        # Run the StorageCraft submenu script
         & $scriptPath
         
     }
     else {
-        Write-Host "`nError: Manual FTP Tool not found!" -ForegroundColor Red
+        Write-Host "`nError: StorageCraft Troubleshooter not found!" -ForegroundColor Red
         Write-Host "Expected location: $scriptPath" -ForegroundColor Yellow
         Write-Host "`nPlease use Option 1 to download and install first." -ForegroundColor Yellow
         Write-Host "`nPress any key to return to menu..."
         $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
     }
-}
-
-function Start-ImageManagerService {
-    Write-Host "`n=== Starting StorageCraft ImageManager Service ===" -ForegroundColor Cyan
-    
-    if (-not (Test-Administrator)) {
-        Write-Host "Error: Administrator privileges required!" -ForegroundColor Red
-        Write-Host "Please run this script as Administrator to manage services." -ForegroundColor Yellow
-        Write-Host "`nPress any key to return to menu..."
-        $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-        return
-    }
-    
-    try {
-        $service = Get-Service -Name $serviceName -ErrorAction Stop
-        
-        if ($service.Status -eq 'Running') {
-            Write-Host "Service is already running." -ForegroundColor Green
-        }
-        else {
-            Write-Host "Starting service..." -ForegroundColor Yellow
-            Start-Service -Name $serviceName
-            Start-Sleep -Seconds 2
-            $service.Refresh()
-            Write-Host "Service started successfully!" -ForegroundColor Green
-            Write-Host "Current status: $($service.Status)" -ForegroundColor Cyan
-        }
-    }
-    catch {
-        Write-Host "Error: $_" -ForegroundColor Red
-        Write-Host "`nPossible reasons:" -ForegroundColor Yellow
-        Write-Host "- Service not installed" -ForegroundColor Yellow
-        Write-Host "- Insufficient permissions" -ForegroundColor Yellow
-        Write-Host "- Service is disabled" -ForegroundColor Yellow
-    }
-    
-    Write-Host "`nPress any key to return to menu..."
-    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-}
-
-function Stop-ImageManagerService {
-    Write-Host "`n=== Stopping StorageCraft ImageManager Service ===" -ForegroundColor Cyan
-    
-    if (-not (Test-Administrator)) {
-        Write-Host "Error: Administrator privileges required!" -ForegroundColor Red
-        Write-Host "Please run this script as Administrator to manage services." -ForegroundColor Yellow
-        Write-Host "`nPress any key to return to menu..."
-        $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-        return
-    }
-    
-    try {
-        $service = Get-Service -Name $serviceName -ErrorAction Stop
-        
-        if ($service.Status -eq 'Stopped') {
-            Write-Host "Service is already stopped." -ForegroundColor Green
-        }
-        else {
-            Write-Host "Stopping service..." -ForegroundColor Yellow
-            Stop-Service -Name $serviceName -Force
-            Start-Sleep -Seconds 2
-            $service.Refresh()
-            Write-Host "Service stopped successfully!" -ForegroundColor Green
-            Write-Host "Current status: $($service.Status)" -ForegroundColor Cyan
-        }
-    }
-    catch {
-        Write-Host "Error: $_" -ForegroundColor Red
-        Write-Host "`nPossible reasons:" -ForegroundColor Yellow
-        Write-Host "- Service not installed" -ForegroundColor Yellow
-        Write-Host "- Insufficient permissions" -ForegroundColor Yellow
-    }
-    
-    Write-Host "`nPress any key to return to menu..."
-    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-}
-
-function Restart-ImageManagerService {
-    Write-Host "`n=== Restarting StorageCraft ImageManager Service ===" -ForegroundColor Cyan
-    
-    if (-not (Test-Administrator)) {
-        Write-Host "Error: Administrator privileges required!" -ForegroundColor Red
-        Write-Host "Please run this script as Administrator to manage services." -ForegroundColor Yellow
-        Write-Host "`nPress any key to return to menu..."
-        $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-        return
-    }
-    
-    try {
-        $service = Get-Service -Name $serviceName -ErrorAction Stop
-        
-        Write-Host "Restarting service..." -ForegroundColor Yellow
-        Restart-Service -Name $serviceName -Force
-        Start-Sleep -Seconds 2
-        $service.Refresh()
-        Write-Host "Service restarted successfully!" -ForegroundColor Green
-        Write-Host "Current status: $($service.Status)" -ForegroundColor Cyan
-    }
-    catch {
-        Write-Host "Error: $_" -ForegroundColor Red
-        Write-Host "`nPossible reasons:" -ForegroundColor Yellow
-        Write-Host "- Service not installed" -ForegroundColor Yellow
-        Write-Host "- Insufficient permissions" -ForegroundColor Yellow
-    }
-    
-    Write-Host "`nPress any key to return to menu..."
-    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-}
-
-function Get-ImageManagerServiceStatus {
-    Write-Host "`n=== StorageCraft ImageManager Service Status ===" -ForegroundColor Cyan
-    
-    try {
-        $service = Get-Service -Name $serviceName -ErrorAction Stop
-        
-        Write-Host "`nService Information:" -ForegroundColor White
-        Write-Host "  Name:        $($service.Name)" -ForegroundColor Gray
-        Write-Host "  Display:     $($service.DisplayName)" -ForegroundColor Gray
-        
-        $statusColor = switch ($service.Status) {
-            'Running' { 'Green' }
-            'Stopped' { 'Red' }
-            default { 'Yellow' }
-        }
-        Write-Host "  Status:      " -NoNewline -ForegroundColor Gray
-        Write-Host $service.Status -ForegroundColor $statusColor
-        
-        Write-Host "  Start Type:  $($service.StartType)" -ForegroundColor Gray
-        Write-Host "  Can Stop:    " -NoNewline -ForegroundColor Gray
-        Write-Host $service.CanStop -ForegroundColor $(if ($service.CanStop) { 'Green' } else { 'Red' })
-        
-        Write-Host "  Can Pause:   " -NoNewline -ForegroundColor Gray
-        Write-Host $service.CanPauseAndContinue -ForegroundColor $(if ($service.CanPauseAndContinue) { 'Green' } else { 'Red' })
-    }
-    catch {
-        Write-Host "`nError: Service not found or inaccessible" -ForegroundColor Red
-        Write-Host "Service Name: $serviceName" -ForegroundColor Yellow
-    }
-    
-    Write-Host "`nPress any key to return to menu..."
-    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
 
 function Run-MassGraveActivation {
@@ -386,7 +243,7 @@ function Run-MassGraveActivation {
 # Main menu loop
 do {
     Show-Menu
-    Write-Host "  Select an option (1-7 or Q): " -NoNewline -ForegroundColor White
+    Write-Host "  Select an option (1-3 or Q): " -NoNewline -ForegroundColor White
     $choice = Read-Host
     
     switch ($choice.ToUpper()) {
@@ -394,21 +251,9 @@ do {
             Download-And-Install
         }
         '2' {
-            Run-Troubleshooter
+            Run-StorageCraftTroubleshooter
         }
         '3' {
-            Start-ImageManagerService
-        }
-        '4' {
-            Stop-ImageManagerService
-        }
-        '5' {
-            Restart-ImageManagerService
-        }
-        '6' {
-            Get-ImageManagerServiceStatus
-        }
-        '7' {
             Run-MassGraveActivation
         }
         'Q' {
@@ -416,7 +261,7 @@ do {
             exit 0
         }
         default {
-            Write-Host "`nInvalid selection. Please choose 1-7 or Q." -ForegroundColor Red
+            Write-Host "`nInvalid selection. Please choose 1-3 or Q." -ForegroundColor Red
             Start-Sleep -Seconds 2
         }
     }
