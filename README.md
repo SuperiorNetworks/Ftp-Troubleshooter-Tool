@@ -1,26 +1,54 @@
-# FTP Troubleshooter Tool
+# IT Troubleshooting Toolkit Launcher
 
-**Version:** 1.5.0  
+**Version:** 1.6.0  
 **Copyright:** 2025
 
 ## Overview
 
-The FTP Troubleshooter Tool is a PowerShell-based interactive file uploader designed for reliable manual file transfers to FTP servers. This utility provides a user-friendly GUI interface for selecting and uploading files with real-time progress tracking.
+The IT Troubleshooting Toolkit Launcher is a comprehensive PowerShell-based menu system that provides quick access to essential troubleshooting tools and utilities. Designed for IT professionals and MSPs, this launcher centralizes common troubleshooting tasks into a single, easy-to-use interface.
+
+## Available Tools
+
+The launcher provides access to the following tools:
+
+### 1. FTP Troubleshooter Tool
+Interactive file uploader with GUI file picker for manual FTP transfers. Ideal for backup operations when automated systems fail.
+
+**Features:**
+- GUI-based file selection (single or multiple files)
+- Configurable FTP server with override option
+- Secure credential handling
+- Real-time progress tracking
+- 1MB buffer for efficient large file transfers
+
+### 2. StorageCraft ImageManager Service Management
+Complete service control for StorageCraft ImageManager backup service.
+
+**Features:**
+- Start/Stop/Restart service operations
+- Real-time service status monitoring
+- Detailed service information display
+- Administrator privilege detection
 
 ## Purpose
 
-This tool serves as a reliable manual file transfer solution when automated systems experience issues or when ad-hoc file uploads are needed. It combines ease of use with robust error handling to ensure successful file transfers.
+This toolkit launcher serves as a centralized troubleshooting hub for IT professionals, providing:
 
-## Key Features
+- **Quick Access**: Launch multiple troubleshooting tools from a single menu
+- **Service Management**: Control critical backup and system services
+- **Failover Solutions**: Manual tools when automated systems fail
+- **Ease of Use**: User-friendly menu interface with clear options
+- **Self-Updating**: Download and install latest versions automatically
 
-- **Interactive GUI File Picker**: Select single or multiple files using a familiar Windows dialog
-- **Configurable Default FTP Server**: Pre-configured with a default server for quick access
-- **Flexible Server Override**: Option to manually specify an alternative FTP server when needed
-- **Secure Credential Handling**: Password input is masked and handled as a SecureString
-- **Real-time Progress Tracking**: Visual progress bar shows upload status for each file
-- **Robust Error Handling**: Comprehensive try-catch-finally blocks prevent resource leaks
-- **Efficient Transfer**: 1MB buffer size optimized for large file transfers
-- **Memory Security**: Automatic cleanup of plaintext credentials after use
+## Launcher Menu Features
+
+- **Self-Contained Installation**: Automatic download and installation from GitHub
+- **File Overwrite Protection**: Safely updates existing installations
+- **Interactive Menu System**: Easy-to-navigate options with color-coded display
+- **Real-Time Status**: Shows current service status in menu
+- **Administrator Detection**: Automatically detects privilege level for service operations
+- **Tool Integration**: Seamlessly launches individual troubleshooting tools
+- **Persistent Menu**: Returns to menu after each operation for quick access
 
 ## System Requirements
 
@@ -32,40 +60,46 @@ This tool serves as a reliable manual file transfer solution when automated syst
 
 ## Quick Start
 
-### Option 1: Interactive Launcher Menu (Recommended)
+### Option 1: Launch the Toolkit Menu (Recommended)
 
-Download and run the interactive launcher:
+Download and run the interactive launcher menu:
 
 ```powershell
 # Download the launcher
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SuperiorNetworks/Ftp-Troubleshooter-Tool/master/launch_menu.ps1" -OutFile "$env:TEMP\launch_menu.ps1"
 
-# Run the launcher
+# Run the launcher menu
 PowerShell.exe -ExecutionPolicy Bypass -File "$env:TEMP\launch_menu.ps1"
 ```
 
-The launcher menu provides:
-- **Option 1**: Download and install latest version to `C:\ITTools\FTPFIX`
-- **Option 2**: Run the FTP troubleshooter tool
+**The launcher menu provides access to:**
+
+**Toolkit Management:**
+- **Option 1**: Download and install latest toolkit version to `C:\ITTools\FTPFIX`
+
+**Troubleshooting Tools:**
+- **Option 2**: FTP Troubleshooter Tool (manual file upload)
+
+**Service Management:**
 - **Option 3**: Start StorageCraft ImageManager service
 - **Option 4**: Stop StorageCraft ImageManager service
 - **Option 5**: Restart StorageCraft ImageManager service
 - **Option 6**: Check ImageManager service status
 
-### Option 2: One-Line Install and Run
+### Option 2: One-Line Install and Launch
 
-Download, extract, and run in one command:
+Download, install, and launch the toolkit menu in one command:
 
 ```powershell
-# Create directory, download, extract, and run
-$installPath = "C:\ITTools\FTPFIX"; New-Item -ItemType Directory -Path $installPath -Force | Out-Null; Invoke-WebRequest -Uri "https://github.com/SuperiorNetworks/Ftp-Troubleshooter-Tool/archive/refs/heads/master.zip" -OutFile "$env:TEMP\ftp-tool.zip"; Expand-Archive -Path "$env:TEMP\ftp-tool.zip" -DestinationPath "$env:TEMP\ftp-extract" -Force; Copy-Item -Path "$env:TEMP\ftp-extract\Ftp-Troubleshooter-Tool-master\*" -Destination $installPath -Recurse -Force; PowerShell.exe -ExecutionPolicy Bypass -File "$installPath\ftp_troubleshooter_tool.ps1"
+# Create directory, download, extract, and launch menu
+$installPath = "C:\ITTools\FTPFIX"; New-Item -ItemType Directory -Path $installPath -Force | Out-Null; Invoke-WebRequest -Uri "https://github.com/SuperiorNetworks/Ftp-Troubleshooter-Tool/archive/refs/heads/master.zip" -OutFile "$env:TEMP\ftp-tool.zip"; Expand-Archive -Path "$env:TEMP\ftp-tool.zip" -DestinationPath "$env:TEMP\ftp-extract" -Force; Copy-Item -Path "$env:TEMP\ftp-extract\Ftp-Troubleshooter-Tool-master\*" -Destination $installPath -Recurse -Force; PowerShell.exe -ExecutionPolicy Bypass -File "$installPath\launch_menu.ps1"
 ```
 
 ### Option 3: Manual Installation
 
 1. Download the repository as a ZIP file from GitHub
 2. Extract to `C:\ITTools\FTPFIX` (or your preferred location)
-3. Run `ftp_troubleshooter_tool.ps1`
+3. Run `launch_menu.ps1` to access the toolkit menu
 
 ## Installation
 
@@ -131,40 +165,52 @@ Replace `ftp.sndayton.com` with your preferred FTP server address. This default 
 ### Method 1: Right-Click Execution (Easiest)
 
 1. Navigate to the script file in File Explorer
-2. Right-click on `ftp_troubleshooter_tool.ps1`
+2. Right-click on `launch_menu.ps1`
 3. Select **"Run with PowerShell"**
+4. The toolkit menu will appear with all available options
 
 ### Method 2: PowerShell Console (Recommended)
 
-1. Open PowerShell (no admin rights needed)
-2. Navigate to the script directory:
+1. Open PowerShell (no admin rights needed for most options)
+2. Navigate to the toolkit directory:
    ```powershell
    cd C:\ITTools\FTPFIX
    ```
-3. Execute the script:
+3. Launch the toolkit menu:
    ```powershell
-   .\ftp_troubleshooter_tool.ps1
+   .\launch_menu.ps1
    ```
 
-### Method 3: Direct Run from Installation Path
+### Method 3: Direct Launch from Any Location
 
-Run directly without changing directories:
-
-```powershell
-PowerShell.exe -ExecutionPolicy Bypass -File "C:\ITTools\FTPFIX\ftp_troubleshooter_tool.ps1"
-```
-
-### Method 4: Using the Interactive Launcher
-
-If you installed using the launcher menu, run:
+Launch the toolkit menu directly without changing directories:
 
 ```powershell
 PowerShell.exe -ExecutionPolicy Bypass -File "C:\ITTools\FTPFIX\launch_menu.ps1"
 ```
 
-### Interactive Workflow
+### Method 4: Launch as Administrator (For Service Management)
 
-Once the script starts, follow these prompts:
+To access service management options, run as Administrator:
+
+```powershell
+# Right-click PowerShell and select "Run as Administrator", then:
+PowerShell.exe -ExecutionPolicy Bypass -File "C:\ITTools\FTPFIX\launch_menu.ps1"
+```
+
+### Toolkit Menu Workflow
+
+Once the launcher menu starts:
+
+1. **View Available Options**: The menu displays all available tools and services
+2. **Check Service Status**: Current ImageManager service status is shown (if installed)
+3. **Select an Option**: Enter the number (1-6) or Q to quit
+4. **Tool Execution**: Selected tool or service operation runs
+5. **Return to Menu**: After completion, menu redisplays for next action
+
+### Using the FTP Troubleshooter (Option 2)
+
+When you select Option 2 from the menu:
 
 1. **File Selection**: A GUI dialog appears—select one or more files to upload
 2. **FTP Server**: Press Enter to use the default or type a new address
@@ -285,13 +331,14 @@ The script provides detailed error messages for each failed upload. Common error
 
 ## Use Cases
 
-This tool is ideal for:
+This toolkit launcher is ideal for:
 
-1. **Manual File Transfers**: When automated systems are unavailable
-2. **Ad-hoc Uploads**: Quick one-time file transfers
-3. **Backup Operations**: Secondary upload method for critical files
-4. **Testing**: Verifying FTP connectivity and credentials
-5. **Troubleshooting**: Isolating whether transfer issues are system-specific or network-related
+1. **IT Troubleshooting**: Quick access to multiple diagnostic and repair tools
+2. **Backup Failover**: Manual file transfers when automated backup systems fail
+3. **Service Management**: Restart unresponsive backup services without navigating Windows Services
+4. **MSP Operations**: Standardized toolkit for technicians across multiple client sites
+5. **Emergency Response**: Fast deployment and execution during system issues
+6. **Training**: Easy-to-use interface for junior technicians
 
 ## Contributing
 
@@ -306,6 +353,13 @@ This software is provided as-is without warranty of any kind.
 ---
 
 ## Change Log
+
+### Version 1.6.0 (2025-11-21)
+- Rebranded as IT Troubleshooting Toolkit Launcher
+- Updated documentation to emphasize toolkit launcher concept
+- Listed all available tools in documentation
+- Updated Quick Start to launch menu instead of FTP tool directly
+- Reorganized documentation for better clarity
 
 ### Version 1.5.0 (2025-11-21)
 - Fixed file overwrite behavior during installation

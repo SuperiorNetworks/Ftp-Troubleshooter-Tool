@@ -1,21 +1,23 @@
 <#
 .SYNOPSIS
-FTP Troubleshooter Tool - Interactive Launcher Menu
+IT Troubleshooting Toolkit - Interactive Launcher Menu
 
 .DESCRIPTION
 Name: launch_menu.ps1
-Version: 1.3.0
-Purpose: Interactive menu for downloading/installing and running the FTP Troubleshooter Tool,
-         plus managing the StorageCraft ImageManager service
+Version: 1.4.0
+Purpose: Centralized launcher menu for IT troubleshooting tools and service management.
+         Provides quick access to FTP file transfer tools and StorageCraft ImageManager service control.
 Path: /scripts/launch_menu.ps1
 Copyright: 2025
 
 Key Features:
-- Download and install latest version from GitHub
-- Automatic extraction to C:\ITTools\FTPFIX
-- Run the FTP troubleshooter tool
-- Start, stop, and restart StorageCraft ImageManager service
-- User-friendly menu interface
+- Self-updating toolkit installation from GitHub
+- Automatic extraction to C:\ITTools\FTPFIX with file overwrite
+- FTP Troubleshooter Tool access (manual file uploads)
+- StorageCraft ImageManager service management (start/stop/restart/status)
+- User-friendly color-coded menu interface
+- Real-time service status display
+- Administrator privilege detection
 
 Input: 
 - User menu selection (1-6 or Q)
@@ -36,10 +38,11 @@ Change Log:
 2025-11-21 v1.1.0 - Added StorageCraft ImageManager service management options
 2025-11-21 v1.2.0 - Updated installation path to C:\ITTools\FTPFIX
 2025-11-21 v1.3.0 - Fixed file overwrite during installation; always show menu first
+2025-11-21 v1.4.0 - Rebranded as IT Troubleshooting Toolkit Launcher
 
 .NOTES
-This launcher provides an easy way to install, run, and manage the FTP Troubleshooter Tool
-and StorageCraft ImageManager service.
+This launcher provides centralized access to multiple IT troubleshooting tools and utilities.
+Designed for IT professionals and MSPs to streamline common troubleshooting tasks.
 #>
 
 # Configuration
@@ -57,9 +60,9 @@ function Test-Administrator {
 
 function Show-Menu {
     Clear-Host
-    Write-Host "=====================================" -ForegroundColor Cyan
-    Write-Host "  FTP Troubleshooter Tool - Launcher" -ForegroundColor Cyan
-    Write-Host "=====================================" -ForegroundColor Cyan
+    Write-Host "=========================================" -ForegroundColor Cyan
+    Write-Host "  IT Troubleshooting Toolkit - Launcher" -ForegroundColor Cyan
+    Write-Host "=========================================" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "FTP Tool Management:" -ForegroundColor White
     Write-Host "  1. Download and Install Latest Version" -ForegroundColor Green
